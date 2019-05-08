@@ -23,7 +23,7 @@ We will publish this on GitHub pages so you need two repositories.
 Unless you already have one, create a GitHub repository named
 after your username.
 
-`<username.github.io`
+`<username>.github.io`
 
 ### Your workshop repository
 
@@ -68,4 +68,15 @@ After a short delay you should be able to see "Hello Elm"
 at `http://<username>.github.io/<workshop-repository-name>`.
 
 
+## Install elm-live
 
+This is a convenient way of getting hot reload while 
+developing. For details see https://github.com/wking-io/elm-live
+
+`npm install --global elm elm-live` 
+
+### Run with elm-live
+
+`elm-live src/Main.elm --pushstate -- --output=elm.js --debug`
+
+Page is served on http://localhost:8000.
