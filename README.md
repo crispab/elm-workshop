@@ -3,10 +3,22 @@ Elm workshop for the absolute beginner.
 
 ## Preparation
 
+### Clone this repository
+
+Clone this repository to have it on the side for reference. The presentation 
+is included. There may be updates later that you may wish to pull.
+
+```
+git clone https://github.com/crispab/elm-workshop
+```
+
 ### Install Elm
 
 Follow the instructions of the official guide to install 
 Elm: https://guide.elm-lang.org/install.html
+
+Do not forget to set up your IDE for Elm development. I prefer
+IntelliJ but you may think differently.
 
 #### Verify installation
 ```
