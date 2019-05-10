@@ -88,17 +88,16 @@ listGetAt index list =
 
 
 listSetAt : Int -> a -> List a -> List a
-listSetAt index value list =
-    case list of
-        head :: tail ->
-            if index <= 0 then
-                value :: tail
+listSetAt index newValue list =
+    List.indexedMap
+        (\n current ->
+            if n == index then
+                newValue
 
             else
-                head :: listSetAt (index - 1) value tail
-
-        [] ->
-            []
+                current
+        )
+        list
 
 
 nextPlayer : Player -> Player
