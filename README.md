@@ -37,18 +37,18 @@ after your username.
 
 `<username>.github.io`
 
-### Your workshop repository
+### Your project repository
 
-The result of your workshop will be published under 
-`http://<username>.github.io/<workshop-repository-name>`
+The result of your project will be published under 
+`http://<username>.github.io/<project-repository>`
 
 Create a repository at GitHub **under the user name you just used** 
-for your workshop. Use any name or use `elm-noob`. ;)
+for your project. 
 
 Clone the repository
 ```
-git clone https://github.com/<username>/<workshop-repository-name>
-cd <workshop-repository-name>
+git clone https://github.com/<username>/<project-repository>
+cd <project-repository>
 ```
 
 In that repository, create a landing page `index.html`
@@ -67,9 +67,9 @@ git commit -m "Initial" index.html
 git push
 ```
 
-#### Enable Github pages for your workshop
+#### Enable Github pages for your project
 
-Go to the workshop repository on GitHub. 
+Go to the project repository on GitHub. 
 To the top right, you'll find `Settings`.
 Click on it and scroll down until you find `GitHub pages`. 
 
@@ -77,7 +77,7 @@ Locate the drop-down in the `Source` section and select
 `master branch`.
 
 After a short delay you should be able to see "Hello Elm"
-at `http://<username>.github.io/<workshop-repository-name>`.
+at `http://<username>.github.io/<project-repository>`.
 
 
 ## Install elm-live
