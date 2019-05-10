@@ -37,7 +37,7 @@ init =
 
 
 type alias Cell =
-    { row : Int, col : Int, player : Player }
+    { row : Int, col : Int }
 
 
 type Msg
@@ -136,7 +136,7 @@ viewRow rowIndex rowData =
 
 viewButton : Int -> Int -> Player -> Html Msg
 viewButton row col player =
-    button [ onClick (Flip (Cell row col player)) ] [ text (playerToString player) ]
+    button [ onClick (Flip (Cell row col)) ] [ text (playerToString player) ]
 
 
 playerToString : Player -> String
