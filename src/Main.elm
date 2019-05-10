@@ -33,23 +33,28 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         Flip ->
-            if model.currentPlayer == X then
-                { model | currentPlayer = O, buttonValue = X }
+            if model.buttonValue == X then
+                { model | buttonValue = X }
 
             else
-                { model | currentPlayer = X, buttonValue = O }
+                { model | buttonValue = O }
 
 
 view : Model -> Html Msg
 view model =
     div []
-        [ case model.buttonValue of
-            NoPlayer ->
-                button [ onClick Flip ] [ text "_" ]
-
-            X ->
-                button [ onClick Flip ] [ text "X" ]
-
-            O ->
-                button [ onClick Flip ] [ text "O" ]
+        [ button [ onClick Flip ] [ text (playerToString model.buttonValue) ]
         ]
+
+
+playerToString : Player -> String
+playerToString p =
+    case p of
+        X ->
+            "X"
+
+        O ->
+            "O"
+
+        NoPlayer ->
+            "_"
