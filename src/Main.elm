@@ -10,7 +10,8 @@ main =
 
 
 type alias Model =
-    { buttonValue : Player
+    { currentPlayer : Player
+    , buttonValue : Player
     }
 
 
@@ -22,29 +23,40 @@ type Player
 
 init : Model
 init =
-    { buttonValue = NoPlayer
+    { currentPlayer = X
+    , buttonValue = NoPlayer
     }
 
 
 type Msg
-    = Flip
+    = Flip Player
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Flip ->
-            if model.buttonValue == X then
-                { model | buttonValue = X }
+        Flip player ->
+            { model | buttonValue = player, currentPlayer = nextPlayer model.currentPlayer }
 
-            else
-                { model | buttonValue = O }
+
+nextPlayer : Player -> Player
+nextPlayer current =
+    case current of
+        NoPlayer ->
+            X
+
+        X ->
+            O
+
+        O ->
+            X
 
 
 view : Model -> Html Msg
 view model =
     div []
-        [ button [ onClick Flip ] [ text (playerToString model.buttonValue) ]
+        [ div [] [ text ("Current player: " ++ playerToString model.currentPlayer) ]
+        , button [ onClick (Flip model.currentPlayer) ] [ text (playerToString model.buttonValue) ]
         ]
 
 
