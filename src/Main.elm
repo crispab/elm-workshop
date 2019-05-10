@@ -9,9 +9,13 @@ main =
     Browser.sandbox { init = init, update = update, view = view }
 
 
+type alias Board =
+    List (List Player)
+
+
 type alias Model =
     { currentPlayer : Player
-    , buttonValue : Player
+    , board : Board
     }
 
 
@@ -24,19 +28,77 @@ type Player
 init : Model
 init =
     { currentPlayer = X
-    , buttonValue = NoPlayer
+    , board =
+        [ [ NoPlayer, NoPlayer, NoPlayer ]
+        , [ NoPlayer, NoPlayer, NoPlayer ]
+        , [ NoPlayer, NoPlayer, NoPlayer ]
+        ]
     }
 
 
+type alias Cell =
+    { row : Int, col : Int, player : Player }
+
+
 type Msg
-    = Flip Player
+    = Flip Cell
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Flip player ->
-            { model | buttonValue = player, currentPlayer = nextPlayer model.currentPlayer }
+        Flip cell ->
+            { model | board = updateBoard cell model.currentPlayer model.board, currentPlayer = nextPlayer model.currentPlayer }
+
+
+
+{- Secondly, we realise we need a get function to get the row to modify. -}
+
+
+updateBoard : Cell -> Player -> Board -> Board
+updateBoard cell player board =
+    case listGetAt cell.row board of
+        Just row ->
+            listSetAt cell.row (listSetAt cell.col player row) board
+
+        Nothing ->
+            board
+
+
+
+{- Third,  the get function can not guarantee a value so it is a Maybe. -}
+
+
+listGetAt : Int -> List a -> Maybe a
+listGetAt index list =
+    case list of
+        head :: tail ->
+            if index <= 0 then
+                Just head
+
+            else
+                listGetAt (index - 1) tail
+
+        [] ->
+            Nothing
+
+
+
+{- The board is a list of lists, so first we do this to replace a value in a list. -}
+
+
+listSetAt : Int -> a -> List a -> List a
+listSetAt index value list =
+    case list of
+        head :: tail ->
+            if index <= 0 then
+                value :: tail
+
+            else
+                head :: listSetAt (index - 1) value tail
+
+        [] ->
+            []
 
 
 nextPlayer : Player -> Player
@@ -56,8 +118,25 @@ view : Model -> Html Msg
 view model =
     div []
         [ div [] [ text ("Current player: " ++ playerToString model.currentPlayer) ]
-        , button [ onClick (Flip model.currentPlayer) ] [ text (playerToString model.buttonValue) ]
+        , viewBoard model.board
         ]
+
+
+viewBoard : Board -> Html Msg
+viewBoard board =
+    div []
+        (List.indexedMap viewRow board)
+
+
+viewRow : Int -> List Player -> Html Msg
+viewRow rowIndex rowData =
+    div []
+        (List.indexedMap (viewButton rowIndex) rowData)
+
+
+viewButton : Int -> Int -> Player -> Html Msg
+viewButton row col player =
+    button [ onClick (Flip (Cell row col player)) ] [ text (playerToString player) ]
 
 
 playerToString : Player -> String
