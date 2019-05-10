@@ -6,20 +6,11 @@ import Html.Events exposing (onClick)
 
 
 main =
-    Browser.sandbox
-        { init = Model X NoPlayer
-        , update = update
-        , view = view
-        }
-
-
-type Msg
-    = Flip
+    Browser.sandbox { init = init, update = update, view = view }
 
 
 type alias Model =
-    { currentPlayer : Player
-    , buttonValue : Player
+    { buttonValue : Player
     }
 
 
@@ -27,6 +18,16 @@ type Player
     = NoPlayer
     | X
     | O
+
+
+init : Model
+init =
+    { buttonValue = NoPlayer
+    }
+
+
+type Msg
+    = Flip
 
 
 update : Msg -> Model -> Model
