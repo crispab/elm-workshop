@@ -114,7 +114,9 @@ Page is served on http://localhost:8000.
 ### Build and publish to Github pages
 ```
 sh build.sh
-git push
+git add .
+git commit -m 'adding changes'
+git push origin master
 ```
 Check `http://<username>.github.io/<project-repository>`
 
