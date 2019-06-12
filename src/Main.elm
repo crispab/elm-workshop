@@ -6,26 +6,37 @@ import Html.Events exposing (onClick)
 
 
 main =
-    Browser.sandbox { init = 0, update = update, view = view }
-
+    Browser.sandbox { init = init, update = update, view = view }
 
 type Msg
-    = Increment
-    | Decrement
+    = Flip
 
-
+update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Increment ->
-            model + 1
+        Flip ->
+            case model.buttonValue of
+                "O" ->
+                    { model | buttonValue = "X"}
 
-        Decrement ->
-            model - 1
+                "X" ->
+                    { model | buttonValue = "O"}
+
+                _ ->
+                    model
+
+
+type alias Model =
+    { buttonValue : String
+    }
+
+init : Model
+init =
+    { buttonValue = "O"
+    }
 
 
 view model =
     div []
-        [ button [ onClick Decrement ] [ text "-" ]
-        , div [] [ text (String.fromInt model) ]
-        , button [ onClick Increment ] [ text "+" ]
+        [ button [ onClick Flip ] [ text model.buttonValue ]
         ]
